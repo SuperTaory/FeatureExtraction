@@ -66,7 +66,7 @@ object extractFeatures {
 
         val periodFlowMap = sc.broadcast(periodFlow.collect().toMap)
 
-        val odPairWithID = sc.textFile(args(2)).map(line => {
+        val odPairWithID = sc.textFile(args(1)).map(line => {
             val fields = line.split(',')
             val id = fields(0).drop(1)
             val ot = transTimeToTimestamp(fields(1))
@@ -221,7 +221,7 @@ object extractFeatures {
                 ""
         }).filter(x => x.nonEmpty)
 
-        irregularTrip.repartition(5).saveAsTextFile(args(3))
+        irregularTrip.repartition(5).saveAsTextFile(args(2))
         sc.stop()
     }
 
